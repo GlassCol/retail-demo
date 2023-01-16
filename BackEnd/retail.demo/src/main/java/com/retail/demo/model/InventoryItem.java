@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InventoryItem {
     private Long id;
-    private Long name;
+    private String name;
     private Long price;
+    private Long discount;
     private Long quantity;
     private Long stock;
+    private Long orderId;
 }

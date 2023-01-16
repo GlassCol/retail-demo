@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class UserOrder {
     private Long id;
     private Long userId;
     private Long itemQuantity;

@@ -28,8 +28,11 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
 
     @Override
     public InventoryItem updateInventoryItem(Long id, InventoryItem inventoryItem) {
-        InventoryItemEntity inventoryItemEntity = new InventoryItemEntity();
-        BeanUtils.copyProperties(inventoryItem, inventoryItemEntity);
+        InventoryItemEntity inventoryItemEntity = inventoryItemDao.findById(id).get();
+        inventoryItemEntity.setName(inventoryItem.getName());
+        inventoryItemEntity.setPrice(inventoryItem.getPrice());
+        inventoryItemEntity.setQuantity(inventoryItem.getQuantity());
+        inventoryItemEntity.setStock(inventoryItem.getStock());
         inventoryItemDao.save(inventoryItemEntity);
         return inventoryItem;
     }
@@ -51,6 +54,9 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
 
     @Override
     public List<InventoryItem> getAllInventoryItems() {
+        if(inventoryItemDao.findAll().isEmpty() || inventoryItemDao == null){
+            return null;
+        }
         List<InventoryItemEntity> inventoryItemEntities = inventoryItemDao.findAll();
         List<InventoryItem> inventoryItems = new ArrayList<>();
         for (InventoryItemEntity inventoryItemEntity : inventoryItemEntities) {
@@ -61,5 +67,13 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
         return inventoryItems;
     }
 
+    @Override
+    public InventoryItem getLatestAddition() {
+        return inventoryItemDao.findLastAddition();
+    }
+    @Override
+    public boolean isDaoEmpty() {
+        return inventoryItemDao.findAll().isEmpty();
+    }
 
 }
