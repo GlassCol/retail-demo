@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class InventoryItemServiceConcrete implements InventoryItemService {
 
-    private InventoryItemDao inventoryItemDao;
+    private final InventoryItemDao inventoryItemDao;
 
     public InventoryItemServiceConcrete(InventoryItemDao inventoryItemDao) {
         this.inventoryItemDao = inventoryItemDao;
@@ -54,7 +54,7 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
 
     @Override
     public List<InventoryItem> getAllInventoryItems() {
-        if(inventoryItemDao.findAll().isEmpty() || inventoryItemDao == null){
+        if(inventoryItemDao.findAll().isEmpty()){
             return null;
         }
         List<InventoryItemEntity> inventoryItemEntities = inventoryItemDao.findAll();

@@ -1,6 +1,5 @@
 package com.retail.demo.service;
 
-import com.retail.demo.dao.InventoryItemDao;
 import com.retail.demo.dao.OrderDao;
 import com.retail.demo.dao.OrderedItemDao;
 import com.retail.demo.entity.InventoryItemEntity;
@@ -8,7 +7,6 @@ import com.retail.demo.entity.OrderEntity;
 import com.retail.demo.model.InventoryItem;
 import com.retail.demo.model.UserOrder;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,6 +57,12 @@ public class OrderServiceConcrete implements OrderService {
 
     @Override
     public boolean deleteOrder(Long id) {
+        //get rid of all items in the order from the ordered items dao first
+        for (InventoryItem item : getAllItemsInOrder(id)){
+            InventoryItemEntity itemEntity = new InventoryItemEntity();
+            BeanUtils.copyProperties(item, itemEntity);
+            removeItemFromOrder(id, itemEntity);
+        }
         OrderEntity order = orderDao.findById(id).get();
         orderDao.delete(order);
         return true;
@@ -67,15 +71,15 @@ public class OrderServiceConcrete implements OrderService {
     @Override
     public List<UserOrder> getAllOrders() {
         List<OrderEntity> orderEntities = orderDao.findAll();
-        List<UserOrder> userOrders = orderEntities.stream()
+        return orderEntities.stream()
                 .map(order -> new UserOrder(order.getId(), order.getUserId(), order.getItemQuantity(), order.getPrice(),
                         order.getDiscount(), order.getTotal(), order.getTax(), order.getStatus()))
                 .collect(Collectors.toList());
-        return userOrders;
     }
 
     @Override
     public InventoryItem addItemToOrder(Long orderId, InventoryItemEntity inventoryItemEntity) {
+        inventoryItemEntity.setOrderId(orderId);
         orderedItemDao.save(inventoryItemEntity);
         InventoryItem inventoryItem = new InventoryItem();
         BeanUtils.copyProperties(inventoryItemEntity, inventoryItem);
@@ -94,13 +98,12 @@ public class OrderServiceConcrete implements OrderService {
             return null;
         }
         List<InventoryItemEntity> itemEntities = orderedItemDao.findAll();
-        List<InventoryItem> inventoryItems = itemEntities.stream()
+        return itemEntities.stream()
                 .filter(itemEntity -> itemEntity.getOrderId().equals(orderId))
                 .map(itemEntity -> new InventoryItem(itemEntity.getId(), itemEntity.getName(),
                         itemEntity.getPrice(), itemEntity.getDiscount(), itemEntity.getQuantity(), itemEntity.getStock(),
                         itemEntity.getOrderId()))
                 .collect(Collectors.toList());
-        return inventoryItems;
     }
 
     @Override

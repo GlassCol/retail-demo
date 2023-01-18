@@ -1,6 +1,5 @@
 package com.retail.demo;
 
-import com.retail.demo.dao.InventoryItemDao;
 import com.retail.demo.entity.InventoryItemEntity;
 import com.retail.demo.model.InventoryItem;
 import com.retail.demo.model.UserOrder;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -70,7 +68,6 @@ public class UserOrderTest {
     @Test
     @Order(5)
     void AddItemToOrder() throws Exception {
-
         InventoryItemEntity inventoryItemEntity = new InventoryItemEntity();
         BeanUtils.copyProperties(testItem, inventoryItemEntity);
         assertNotNull(orderService.addItemToOrder(testId, inventoryItemEntity));
@@ -87,6 +84,7 @@ public class UserOrderTest {
     void removeItemFromOrder() throws Exception {
         InventoryItemEntity inventoryItemEntity = new InventoryItemEntity();
         BeanUtils.copyProperties(testItem, inventoryItemEntity);
+        inventoryItemEntity.setOrderId(testId);
         assertNotNull(orderService.removeItemFromOrder(testId, inventoryItemEntity));
     }
 
@@ -94,5 +92,6 @@ public class UserOrderTest {
     @Order(8)
     void deleteOrder() throws Exception {
         assertTrue(orderService.deleteOrder(testId));
+        assertTrue(orderService.getAllItemsInOrder(testId).size() == 0);
     }
 }
