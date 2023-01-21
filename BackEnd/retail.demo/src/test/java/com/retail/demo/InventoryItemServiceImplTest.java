@@ -51,12 +51,23 @@ public class InventoryItemServiceImplTest {
 
     @Test
     @Order(3)
+    void getItemByName() throws Exception {
+        assertTrue(inventoryItemService.getInventoryItemByName("testItem").size() > 0);
+    }
+
+    @Test
+    @Order(4)
+    void getBadItemName() throws Exception {
+        assertTrue(inventoryItemService.getInventoryItemByName("badItemName").size() == 0);
+    }
+    @Test
+    @Order(5)
     void getAllItems() throws Exception {
         assertTrue(inventoryItemService.getAllInventoryItems().size() > 0);
     }
 
     @Test
-    @Order(4)
+    @Order(6)
     void updateItem() throws Exception {
         inventoryItemService.updateInventoryItem(testId, updateTestItem);
         InventoryItem tempItem = inventoryItemService.getInventoryItem(testId);
@@ -66,7 +77,7 @@ public class InventoryItemServiceImplTest {
 
 
     @Test
-    @Order(5)
+    @Order(7)
     void deleteItem() throws Exception {
         assertTrue(inventoryItemService.deleteInventoryItem(testId));
     }

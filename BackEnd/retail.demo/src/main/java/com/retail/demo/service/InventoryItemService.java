@@ -9,6 +9,7 @@ public interface InventoryItemService {
     InventoryItem createInventoryItem(InventoryItem inventoryItem);
     InventoryItem updateInventoryItem(Long id, InventoryItem inventoryItem);
     InventoryItem getInventoryItem(Long id);
+    List<InventoryItem> getInventoryItemByName(String name);
     boolean deleteInventoryItem(Long id);
     List<InventoryItem> getAllInventoryItems();
     InventoryItem getLatestAddition();

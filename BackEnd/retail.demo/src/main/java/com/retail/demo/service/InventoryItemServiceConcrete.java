@@ -46,6 +46,20 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
     }
 
     @Override
+    public List<InventoryItem> getInventoryItemByName(String name) {
+        List<InventoryItemEntity> inventoryItemEntityList = inventoryItemDao.findAll();
+        List<InventoryItem> inventoryItemList = new ArrayList<>();
+        for (InventoryItemEntity inventoryItemEntity : inventoryItemEntityList) {
+            if (inventoryItemEntity.getName().contains(name)) {
+                InventoryItem inventoryItem = new InventoryItem();
+                BeanUtils.copyProperties(inventoryItemEntity, inventoryItem);
+                inventoryItemList.add(inventoryItem);
+            }
+        }
+        return inventoryItemList;
+    }
+
+    @Override
     public boolean deleteInventoryItem(Long id) {
         InventoryItemEntity item = inventoryItemDao.findById(id).get();
         inventoryItemDao.delete(item);

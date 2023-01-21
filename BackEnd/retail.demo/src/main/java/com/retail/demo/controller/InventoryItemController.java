@@ -1,22 +1,20 @@
 package com.retail.demo.controller;
 
 import com.retail.demo.dao.InventoryItemDao;
-import com.retail.demo.entity.InventoryItemEntity;
 import com.retail.demo.model.InventoryItem;
 import com.retail.demo.service.InventoryItemService;
-import com.retail.demo.service.InventoryItemServiceConcrete;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
 
 @RestController
 @RequestMapping("/inventoryItemApi/v1")
+@CrossOrigin(origins = "http://localhost:3000")
 public class InventoryItemController {
     private InventoryItemDao inventoryItemDao;
     @Autowired
@@ -34,6 +32,16 @@ public class InventoryItemController {
     @GetMapping("/inventoryItems/{inventoryItemId}")
     public InventoryItem getInventoryItem(@PathVariable Long inventoryItemId){
         return inventoryItemService.getInventoryItem(inventoryItemId);
+    }
+
+    @GetMapping("/inventoryItems/byName/{inventoryItemName}")
+    public List<InventoryItem> getInventoryItem(@PathVariable String inventoryItemName){
+        return inventoryItemService.getInventoryItemByName(inventoryItemName);
+    }
+
+    @GetMapping("/inventoryItems")
+    public List<InventoryItem> getLastInventoryItem(){
+        return inventoryItemService.getAllInventoryItems();
     }
 
     @PutMapping("/inventoryItems/{inventoryItemId}")
