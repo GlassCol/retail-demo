@@ -101,7 +101,7 @@ public class OrderServiceConcrete implements OrderService {
         return itemEntities.stream()
                 .filter(itemEntity -> itemEntity.getOrderId().equals(orderId))
                 .map(itemEntity -> new InventoryItem(itemEntity.getId(), itemEntity.getName(),
-                        itemEntity.getDescription(), itemEntity.getPrice(), itemEntity.getStock(),
+                        itemEntity.getDescription(), itemEntity.getPrice(), itemEntity.getQuantity(),
                         itemEntity.getDiscount(), itemEntity.getImage(),
                         itemEntity.getOrderId()))
                 .collect(Collectors.toList());

@@ -20,8 +20,8 @@ public class UserOrderTest {
     @Autowired
     private OrderService orderService;
     private InventoryItemService inventoryItemService;
-    private InventoryItem testItem = new InventoryItem(null, "testItem", -1L, -1L,
-            -1L, -1L, -1L);
+    private InventoryItem testItem = new InventoryItem(null, "testItem", "testItem", -1L, -1L,
+            -1L, null, -1L);
     private UserOrder testUserOrder = new UserOrder(null, -1L, -1L, -1L, -1L, -1L, -1L, "testUserOrder");
 
     private Long testId = -1L;

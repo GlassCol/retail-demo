@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function NavBar({ isLoggedIn, activeUser }) {
+function NavBar({ activeUser }) {
     return (
         <div>
             <nav className="nav">
@@ -9,29 +9,28 @@ function NavBar({ isLoggedIn, activeUser }) {
                     <li>
                         <a href='/'>Home</a>
                     </li>
-                    {isLoggedIn ? (
+                    {activeUser === undefined ? (<></>) : (
                         <li>
                             <a href='/'>Orders</a>
-                        </li>
-                    ) : (<></>)}
-                    {isLoggedIn ? (
+                        </li>)}
+                    {activeUser === undefined ? (<></>) : (
                         <li>
                             <a href='/'>Shopping Cart</a>
-                        </li>
-                    ) : (<></>)}
+                        </li>)}
                     {activeUser === 'admin' ? (
                         <li>
                             <a href='/AddItem'>Add New Item</a>
                         </li>
                     ) : (<></>)}
-                    {isLoggedIn ? (
+                    {activeUser === undefined ? (
                         <li>
-                            <a href='/'>Logout</a>
+                            <a href='/Login'>Login</a>
                         </li>
                     ) : (
                         <li>
-                            <a href='/Login'>Login</a>
-                        </li>)}
+                            <a href='/'>Logout</a>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </div>

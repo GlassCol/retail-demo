@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import InventoryItemService from './service/InventoryItemService';
 import searchIcon from './search.svg';
@@ -13,7 +13,6 @@ const Home = () => {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     let { activeUser } = useParams();
-    const isLoggedIn = useState( useParams().activeUser ? true : false);
     const [shoppingCart, setShoppingCart] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -34,9 +33,21 @@ const Home = () => {
         const removeFromCart = (item) => {
             setShoppingCart(shoppingCart.filter((i) => i !== item));
         }
-        return (
+
+        useEffect(() => {
+            const getItems = async () => {
+                setLoading(true);
+                const response = await InventoryItemService.getAllInventoryItems();
+                setItems(response.data);
+                setLoading(false);
+            }
+            getItems();
+        }, []);
+
+            return (
             <>
-                <NavBar isLoggedIn={isLoggedIn} activeUser={activeUser}/>
+
+                <NavBar activeUser={activeUser}/>
                 <div className='app'>
 
                     <h1>Retailer Web</h1>
@@ -51,11 +62,11 @@ const Home = () => {
                             onClick={() => { searchProduct(searchTerm) }}
                         />
                     </div>
-                
                     {items?.length > 0 ? (
                             <div className="container">
+
                                 {items.map((item) => (
-                                    <ItemCard item={item} key={item.id} addToCart={addToCart} activeUser={activeUser} />
+                                    <ItemCard item={item} key={item.id} addToCart={addToCart} removeFromCart={removeFromCart} activeUser={activeUser} />
                                 ))}
                             </div>
                         ) : (

@@ -24,11 +24,12 @@ const EditItem = () => {
 
     const saveItem = (e) => {
         e.preventDefault();
-        InventoryItemService.updateInventoryItem(() => item).then((response) => {
+        InventoryItemService.updateInventoryItem(item, item.id ).then((response) => {
             console.log(response);
         }).catch((error) => {
             console.log(error);
         })
+        alert("Item updated successfully");
     };
 
     const getItem = () => {
@@ -103,7 +104,7 @@ const EditItem = () => {
                     />
                     <h1>Item Banner</h1>
                 </div>
-                <button className="loginButton" onClick={() => saveItem}>Submit</button>
+                <button className="loginButton" onClick={(e) => saveItem(e)}>Submit</button>
             </div>
         </>
     )

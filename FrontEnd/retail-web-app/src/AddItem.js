@@ -92,7 +92,7 @@ const AddItem = () => {
                     />
                     <h1>Item Banner</h1>
                 </div>
-                <button className="loginButton" onClick={() => saveItem}>Submit</button>
+                <button className="loginButton" onClick={(e) => saveItem(e)}>Submit</button>
             </div>
         </>
     )
