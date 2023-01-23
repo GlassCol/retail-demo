@@ -30,9 +30,12 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
     public InventoryItem updateInventoryItem(Long id, InventoryItem inventoryItem) {
         InventoryItemEntity inventoryItemEntity = inventoryItemDao.findById(id).get();
         inventoryItemEntity.setName(inventoryItem.getName());
+        inventoryItemEntity.setDescription(inventoryItem.getDescription());
         inventoryItemEntity.setPrice(inventoryItem.getPrice());
         inventoryItemEntity.setQuantity(inventoryItem.getQuantity());
-        inventoryItemEntity.setStock(inventoryItem.getStock());
+        inventoryItemEntity.setDiscount(inventoryItem.getDiscount());
+        inventoryItemEntity.setImage(inventoryItem.getImage());
+        inventoryItemEntity.setOrderId(inventoryItem.getOrderId());
         inventoryItemDao.save(inventoryItemEntity);
         return inventoryItem;
     }

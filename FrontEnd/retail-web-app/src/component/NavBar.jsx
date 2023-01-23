@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function NavBar({ isLoggedIn, logout, activeUser }) {
+function NavBar({ isLoggedIn, activeUser }) {
     return (
         <div>
             <nav className="nav">

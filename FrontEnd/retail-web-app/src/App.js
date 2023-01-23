@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "./Home";
 import AddItem from "./AddItem";
+import EditItem from "./EditItem";
 import Login from "./Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -13,6 +14,7 @@ function App() {
         <Route path="*" element={<h1>404: Not Found</h1>} />
         <Route path="/login" element={<Login />} />
         <Route path="/addItem" element={<AddItem />} />
+        <Route path="/editItem/:id" element={<EditItem />} />
       </Routes>
     </Router>
   );

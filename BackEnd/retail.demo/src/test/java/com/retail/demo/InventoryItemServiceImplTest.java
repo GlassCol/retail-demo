@@ -16,13 +16,13 @@ public class InventoryItemServiceImplTest {
     @Autowired
     private InventoryItemService inventoryItemService;
 
-    private InventoryItem testItem = new InventoryItem(null, "testItem", -1L, -1L,
-            -1L, -1L, -1L);
+    private InventoryItem testItem = new InventoryItem(null, "testItem", "testItem", -1L, -1L,
+            -1L, null, -1L);
 
     private Long testId = -1L;
 
-    private InventoryItem updateTestItem = new InventoryItem(null, "test", -1L, -1L,
-            -1L, -1L, -1L);
+    private InventoryItem updateTestItem = new InventoryItem(null, "test", "testDesc", -1L, -1L,
+            -1L, null, -1L);
 
     @BeforeEach
     void init(TestInfo testInfo) {

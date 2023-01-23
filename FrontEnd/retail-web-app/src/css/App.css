@@ -85,6 +85,21 @@ h1 {
   box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
 }
 
+.cardButton {
+  width: 80%;
+  margin-top: 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1f2123;
+  -webkit-text-fill-color: #a1a1a1;
+  border-radius: 3rem;
+  padding: 1rem;
+  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+}
+
 /* .search button {
   padding: 20px 40px;
   border-radius: 0.5rem;

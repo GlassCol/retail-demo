@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import InventoryItemService from './service/InventoryItemService';
 import '../src/css/App.css';
+import { useParams } from 'react-router-dom';
 
-const AddItem = () => {
+const EditItem = () => {
+            let { id } = useParams();
+
     const [item, setItem] = useState({
-        id: "",
+        id: useParams().id,
         name: "",
         description: "",
         price: "",
@@ -14,7 +17,6 @@ const AddItem = () => {
         poster: "",
         orderId: 0
     });
-
     const handleChange = (e) => {
         const value = e.target.value;
         setItem({ ...item, [e.target.name]: value });
@@ -22,14 +24,23 @@ const AddItem = () => {
 
     const saveItem = (e) => {
         e.preventDefault();
-        InventoryItemService.createInventoryItem(item).then((response) => {
+        InventoryItemService.updateInventoryItem(() => item).then((response) => {
             console.log(response);
         }).catch((error) => {
             console.log(error);
         })
-        alert("Item added successfully");
     };
 
+    const getItem = () => {
+        InventoryItemService.getInventoryItemById(item.id).then((response) => {
+            setItem(() => response.data);
+        }).catch((error) => {
+            console.log(error);
+        })
+    };
+    useEffect(() => {
+        getItem();
+    }, [id]);
     return (
         <>
             <div>
@@ -42,10 +53,10 @@ const AddItem = () => {
                 </nav>
             </div>
             <div className="app">
-                <h1>Add Item</h1>
+                <h1>Edit Item</h1>
                 <div className="search">
                     <input type='text'
-                        placeholder='Name...'
+                        placeholder={item.name}
                         name='name'
                         value={item.name}
                         onChange={(e) => handleChange(e)}
@@ -53,7 +64,7 @@ const AddItem = () => {
                 </div>
                 <div className="search">
                     <input type="text"
-                        placeholder='Description...'
+                        placeholder={item.description}
                         name='description'
                         value={item.description}
                         onChange={(e) => handleChange(e)}
@@ -61,7 +72,7 @@ const AddItem = () => {
                 </div>
                 <div className="search">
                     <input type="text"
-                        placeholder='Price...'
+                        placeholder={item.price}
                         name='price'
                         value={item.price}
                         onChange={(e) => handleChange(e)}
@@ -69,7 +80,7 @@ const AddItem = () => {
                 </div>
                 <div className="search">
                     <input type="text"
-                        placeholder='Quantity...'
+                        placeholder={item.quantity}
                         name='quantity'
                         value={item.quantity}
                         onChange={(e) => handleChange(e)}
@@ -77,7 +88,7 @@ const AddItem = () => {
                 </div>
                 <div className="search">
                     <input type="text"
-                        placeholder='Discount...'
+                        placeholder={item.discount}
                         name='discount'
                         value={item.discount}
                         onChange={(e) => handleChange(e)}
@@ -85,7 +96,7 @@ const AddItem = () => {
                 </div>
                 <div className="search">
                     <input type="file"
-                        placeholder='Poster...'
+                        placeholder={item.poster}
                         name='poster'
                         value={item.poster}
                         onChange={(e) => handleChange(e)}
@@ -98,4 +109,4 @@ const AddItem = () => {
     )
 }
 
-export default AddItem;
+export default EditItem;

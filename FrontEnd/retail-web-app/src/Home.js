@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InventoryItemService from './service/InventoryItemService';
 import searchIcon from './search.svg';
 import ItemCard from './component/ItemCard';
@@ -7,22 +7,33 @@ import '../src/css/App.css';
 import NavBar from './component/NavBar';
 import { useParams } from 'react-router-dom';
 
+
+
 const Home = () => {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     let { activeUser } = useParams();
-    const [isLoggedIn, setIsLoggedin] = useState( useParams().activeUser ? true : false);
+    const isLoggedIn = useState( useParams().activeUser ? true : false);
+    const [shoppingCart, setShoppingCart] = useState([]);
+    const [loading, setLoading] = useState(false);
 
         const searchProduct = async (name) => {
+            setLoading(true);
+            try{
             const response = await InventoryItemService.getInventoryItemByName(name);
-            const data = await response.json();
-
-            setItems(data.Search);
+            setItems(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+            setLoading(false);
         }
 
-        useEffect(() => {
-            searchProduct("test");
-        }, []);
+        const addToCart = (item) => {
+            setShoppingCart((shoppingCart) => [...shoppingCart, item]);
+        }
+        const removeFromCart = (item) => {
+            setShoppingCart(shoppingCart.filter((i) => i !== item));
+        }
         return (
             <>
                 <NavBar isLoggedIn={isLoggedIn} activeUser={activeUser}/>
@@ -40,12 +51,11 @@ const Home = () => {
                             onClick={() => { searchProduct(searchTerm) }}
                         />
                     </div>
-
-                    {items?.length > 0
-                        ? (
+                
+                    {items?.length > 0 ? (
                             <div className="container">
                                 {items.map((item) => (
-                                    <ItemCard item={item} />
+                                    <ItemCard item={item} key={item.id} addToCart={addToCart} activeUser={activeUser} />
                                 ))}
                             </div>
                         ) : (
