@@ -3,6 +3,7 @@ import Home from "./Home";
 import AddItem from "./AddItem";
 import EditItem from "./EditItem";
 import Login from "./Login";
+import ShoppingCart from "./ShoppingCart";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/addItem" element={<AddItem />} />
         <Route path="/editItem/:id" element={<EditItem />} />
+        <Route path="/shoppingCart/:user" element={<ShoppingCart />} />
       </Routes>
     </Router>
   );

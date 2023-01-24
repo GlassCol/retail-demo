@@ -88,6 +88,8 @@ public class InventoryItemServiceConcrete implements InventoryItemService {
     public InventoryItem getLatestAddition() {
         return inventoryItemDao.findLastAddition();
     }
+
+
     @Override
     public boolean isDaoEmpty() {
         return inventoryItemDao.findAll().isEmpty();

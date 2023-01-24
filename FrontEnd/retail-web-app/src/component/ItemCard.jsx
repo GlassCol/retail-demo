@@ -1,15 +1,18 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import InventoryItemService from '../service/InventoryItemService';
+import ShoppingCartService from '../service/ShoppingCartService';
 
-const ItemCard = ({ item, addToCart, activeUser, removeFromCart }) => {
+const ItemCard = ({ item, activeUser }) => {
   const navigate = useNavigate();
 
-  const deleteItem = () => {
-    InventoryItemService.deleteInventoryItem(item.id)
-      alert('Item Deleted')
-  }
+  const addToCart = () => {
+    ShoppingCartService.addToShoppingCart(item);
+}
+const removeFromCart = () => {
+    ShoppingCartService.removeFromShoppingCart(item.id);
+}
+
   return (
     <div className="Item" key={item.id}>
       <div className='inventoryItem'>
@@ -18,13 +21,13 @@ const ItemCard = ({ item, addToCart, activeUser, removeFromCart }) => {
         </div>
 
         <div>
-          <img src={item.Poster !== "N/A" ? item.Poster : "https://via.placeholder.com/400"} alt={item.name} />
+          <img src={item.image === "N/A" ? item.image : "https://via.placeholder.com/400"} alt={item.name} />
         </div>
 
         <div>
-          <span>{item.stock} in stock</span>
+          <h4>{item.quantity} - in stock</h4>
           <h3>{item.name}</h3>
-          <h4>{item.price}$</h4>
+          <span>{item.price}$</span>
           <thead>
             <tr>
               <th scope='col'>
@@ -38,7 +41,7 @@ const ItemCard = ({ item, addToCart, activeUser, removeFromCart }) => {
               
               {activeUser === 'admin' &&
               <th scope='col'>
-              <button className='cardButton' onClick={() => deleteItem()}>Delete Item</button>
+              <button className='cardButton' onClick={() => removeFromCart()}>Delete Item</button>
               </th>
             }
             </tr>

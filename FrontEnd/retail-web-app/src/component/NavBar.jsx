@@ -1,5 +1,6 @@
 import React from 'react'
-
+import ShoppingCartService from '../service/ShoppingCartService'
+import { Link } from 'react-router-dom'
 
 function NavBar({ activeUser }) {
     return (
@@ -7,7 +8,7 @@ function NavBar({ activeUser }) {
             <nav className="nav">
                 <ul>
                     <li>
-                        <a href='/'>Home</a>
+                        <a href={'/' + activeUser}>Home</a>
                     </li>
                     {activeUser === undefined ? (<></>) : (
                         <li>
@@ -15,7 +16,7 @@ function NavBar({ activeUser }) {
                         </li>)}
                     {activeUser === undefined ? (<></>) : (
                         <li>
-                            <a href='/'>Shopping Cart</a>
+                            <Link to={`/ShoppingCart/${activeUser}`}>Shopping Cart</Link>
                         </li>)}
                     {activeUser === 'admin' ? (
                         <li>
@@ -28,7 +29,7 @@ function NavBar({ activeUser }) {
                         </li>
                     ) : (
                         <li>
-                            <a href='/'>Logout</a>
+                            <a href='/' onClick={ShoppingCartService.clearShoppingCart}>Logout</a>
                         </li>
                     )}
                 </ul>

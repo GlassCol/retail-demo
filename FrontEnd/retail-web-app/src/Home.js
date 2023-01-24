@@ -13,7 +13,6 @@ const Home = () => {
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     let { activeUser } = useParams();
-    const [shoppingCart, setShoppingCart] = useState([]);
     const [loading, setLoading] = useState(false);
 
         const searchProduct = async (name) => {
@@ -25,13 +24,6 @@ const Home = () => {
                 console.log(error);
             }
             setLoading(false);
-        }
-
-        const addToCart = (item) => {
-            setShoppingCart((shoppingCart) => [...shoppingCart, item]);
-        }
-        const removeFromCart = (item) => {
-            setShoppingCart(shoppingCart.filter((i) => i !== item));
         }
 
         useEffect(() => {
@@ -66,7 +58,7 @@ const Home = () => {
                             <div className="container">
 
                                 {items.map((item) => (
-                                    <ItemCard item={item} key={item.id} addToCart={addToCart} removeFromCart={removeFromCart} activeUser={activeUser} />
+                                    <ItemCard item={item} key={item.id} activeUser={activeUser} />
                                 ))}
                             </div>
                         ) : (

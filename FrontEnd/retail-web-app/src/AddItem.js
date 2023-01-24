@@ -11,7 +11,7 @@ const AddItem = () => {
         price: "",
         quantity: "",
         discount: "",
-        poster: "",
+        image: "N/A",
         orderId: 0
     });
 
@@ -85,9 +85,9 @@ const AddItem = () => {
                 </div>
                 <div className="search">
                     <input type="file"
-                        placeholder='Poster...'
-                        name='poster'
-                        value={item.poster}
+                        placeholder='Banner...'
+                        name='image'
+                        value={item.image}
                         onChange={(e) => handleChange(e)}
                     />
                     <h1>Item Banner</h1>

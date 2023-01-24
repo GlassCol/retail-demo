@@ -13,5 +13,6 @@ public interface InventoryItemService {
     boolean deleteInventoryItem(Long id);
     List<InventoryItem> getAllInventoryItems();
     InventoryItem getLatestAddition();
+
     boolean isDaoEmpty();
 }
