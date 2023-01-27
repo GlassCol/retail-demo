@@ -1,2 +1,14 @@
-package com.retail.demo.model;public class User {
+package com.retail.demo.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+    private Long id;
+    private String username;
+    private String password;
 }

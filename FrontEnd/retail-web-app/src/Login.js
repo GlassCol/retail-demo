@@ -1,25 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../src/css/App.css';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './component/NavBar';
+import UserService from "./service/UserService";
 
-const Login = ({ toggleIsLoggedIn, isLoggedIn, logout, activeUser }) => {
+const Login = () => {
     const navigate = useNavigate();
+    const [activeUser, setActiveUser] = useState(UserService.getCurrentUser());
 
-const [username, setUserName] = useState('');
-const [password, setPassword] = useState('');
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
 
-    const login = () => {
-        if ((username === 'admin' && password === 'admin') ||
-            (username === 'user' && password === 'user')) {
-            navigate('/' + username);
+    const login = async () => {
+        if (username === '' || password === '') {
+            alert('Username and Password May Not Be Blank');
         } else {
-            alert('Invalid credentials');
+            if ( (await UserService.checkLogin(username, password)).data === true) {
+                console.log(await UserService.getUser(username));
+                let user = await UserService.getUser(username);
+                console.log(user.data);
+                await UserService.setCurrentUser(user.data);
+                console.log(await UserService.getCurrentUser());
+                navigate('/');
+            } else {
+                alert('Invalid credentials');
+            }
         }
     }
+
+    useEffect(() => {
+        const fetchActiveUser = async () => {
+            setActiveUser(await UserService.getCurrentUser());
+        }
+        fetchActiveUser();
+    }, []);
+
     return (
         <>
-            <NavBar isLoggedIn={isLoggedIn} activeUser={activeUser} />
+            <NavBar activeUser={activeUser} />
             <div className='app'>
                 <h1>Login</h1>
                 <div className="search">
@@ -30,12 +48,12 @@ const [password, setPassword] = useState('');
                     />
                 </div>
                 <div className="search">
-                <input type='password'
+                    <input type='password'
                         placeholder='Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    </div>
+                </div>
                 <button className='loginButton' onClick={login}>Login</button>
             </div>
         </>

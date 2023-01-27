@@ -1,6 +1,5 @@
 import React from 'react'
-import ShoppingCartService from '../service/ShoppingCartService'
-import { Link } from 'react-router-dom'
+import UserService from '../service/UserService'
 
 function NavBar({ activeUser }) {
     return (
@@ -8,30 +7,38 @@ function NavBar({ activeUser }) {
             <nav className="nav">
                 <ul>
                     <li>
-                        <a href={'/' + activeUser}>Home</a>
+                        <a href={'/'}>Home</a>
                     </li>
-                    {activeUser === undefined ? (<></>) : (
+                    {activeUser.data === '' ? (<></>) : (
                         <li>
                             <a href='/'>Orders</a>
                         </li>)}
-                    {activeUser === undefined ? (<></>) : (
+                    {activeUser.data === '' ? (<></>) : (
                         <li>
-                            <Link to={`/ShoppingCart/${activeUser}`}>Shopping Cart</Link>
+                            <a href={'/ShoppingCart'}>Shopping Cart</a>
                         </li>)}
-                    {activeUser === 'admin' ? (
+                        {console.log(activeUser.data)}
+                        {activeUser.data === undefined ? (<></>) : (
+                            activeUser.data.username === 'admin' ? (
                         <li>
                             <a href='/AddItem'>Add New Item</a>
                         </li>
-                    ) : (<></>)}
-                    {activeUser === undefined ? (
+                    ) : (<></>)
+                        )}
+                    {activeUser.data === '' ? (
                         <li>
                             <a href='/Login'>Login</a>
                         </li>
                     ) : (
                         <li>
-                            <a href='/' onClick={ShoppingCartService.clearShoppingCart}>Logout</a>
+                            <a href='/' onClick={UserService.resetUser}>Logout</a>
                         </li>
                     )}
+                    {activeUser.data === '' ? (
+                    <li>
+                        <a href='/createUser'>Register</a>
+                    </li>
+                    ) : (<></>)}
                 </ul>
             </nav>
         </div>

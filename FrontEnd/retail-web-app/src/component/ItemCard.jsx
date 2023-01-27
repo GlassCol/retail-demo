@@ -7,11 +7,13 @@ const ItemCard = ({ item, activeUser }) => {
   const navigate = useNavigate();
 
   const addToCart = () => {
+    item.data.userId = activeUser.data.id;
     ShoppingCartService.addToShoppingCart(item);
-}
-const removeFromCart = () => {
+    alert(item.name + " has been added to your cart")
+  }
+  const removeFromCart = () => {
     ShoppingCartService.removeFromShoppingCart(item.id);
-}
+  }
 
   return (
     <div className="Item" key={item.id}>
@@ -30,20 +32,22 @@ const removeFromCart = () => {
           <span>{item.price}$</span>
           <thead>
             <tr>
-              <th scope='col'>
-              <button className='cardButton' onClick={() => addToCart()}>Add To Cart</button>
-              </th>
-              {activeUser === 'admin' &&
-              <th scope='col'>
-              <button className='cardButton' onClick={() => navigate('/editItem/' + item.id)}>Edit Item</button>
-              </th>
+              {activeUser.data !== '' &&
+                <th scope='col'>
+                  <button className='cardButton' onClick={() => addToCart()}>Add To Cart</button>
+                </th>
               }
-              
-              {activeUser === 'admin' &&
-              <th scope='col'>
-              <button className='cardButton' onClick={() => removeFromCart()}>Delete Item</button>
-              </th>
-            }
+              {activeUser.data.username === 'admin' &&
+                <th scope='col'>
+                  <button className='cardButton' onClick={() => navigate('/editItem/' + item.id)}>Edit Item</button>
+                </th>
+              }
+
+              {activeUser.data.username === 'admin' &&
+                <th scope='col'>
+                  <button className='cardButton' onClick={() => removeFromCart()}>Delete Item</button>
+                </th>
+              }
             </tr>
           </thead>
         </div>

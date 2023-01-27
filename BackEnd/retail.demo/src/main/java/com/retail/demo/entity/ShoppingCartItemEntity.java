@@ -18,5 +18,5 @@ public class ShoppingCartItemEntity {
     private Long quantity;
     private Long discount;
     private File image;
-    private Long orderId;
+    private Long userId;
 }
