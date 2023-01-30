@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -32,6 +33,21 @@ public class OrderController {
     @GetMapping("/orders/{orderId}")
     public UserOrder getOrder(@PathVariable Long orderId){
         return orderService.getOrder(orderId);
+    }
+
+    @GetMapping("/orders/viewOrder")
+    public UserOrder getViewingOrder(){
+        return orderService.getViewingOrder();
+    }
+
+    @PostMapping("/orders/viewOrder")
+    public UserOrder setViewingOrder(@RequestBody UserOrder userOrder){
+        return orderService.setViewingOrder(userOrder);
+    }
+
+    @GetMapping("/orders/user/{userId}")
+    public List<UserOrder> getUserOrders(@PathVariable Long userId){
+        return orderService.getOrdersByUserId(userId);
     }
 
     @PutMapping("/orders/{orderId}")

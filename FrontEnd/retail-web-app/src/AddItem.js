@@ -36,7 +36,7 @@ const AddItem = () => {
                 <nav className="nav">
                     <ul>
                         <li>
-                            <a href='/admin'>Home</a>
+                            <a href='/'>Home</a>
                         </li>
                     </ul>
                 </nav>

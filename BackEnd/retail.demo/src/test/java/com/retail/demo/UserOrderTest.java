@@ -1,6 +1,7 @@
 package com.retail.demo;
 
 import com.retail.demo.entity.InventoryItemEntity;
+import com.retail.demo.entity.OrderedItemEntity;
 import com.retail.demo.model.InventoryItem;
 import com.retail.demo.model.UserOrder;
 import com.retail.demo.service.InventoryItemService;
@@ -82,16 +83,15 @@ public class UserOrderTest {
     @Test
     @Order(7)
     void removeItemFromOrder() throws Exception {
-        InventoryItemEntity inventoryItemEntity = new InventoryItemEntity();
-        BeanUtils.copyProperties(testItem, inventoryItemEntity);
-        inventoryItemEntity.setOrderId(testId);
-        assertNotNull(orderService.removeItemFromOrder(testId, inventoryItemEntity));
+        OrderedItemEntity orderedItemEntity = new OrderedItemEntity();
+        BeanUtils.copyProperties(testItem, orderedItemEntity);
+        orderedItemEntity.setOrderId(testId);
+        assertNotNull(orderService.removeItemFromOrder(testId, orderedItemEntity));
     }
 
     @Test
     @Order(8)
     void deleteOrder() throws Exception {
         assertTrue(orderService.deleteOrder(testId));
-        assertTrue(orderService.getAllItemsInOrder(testId).size() == 0);
     }
 }

@@ -11,13 +11,12 @@ function NavBar({ activeUser }) {
                     </li>
                     {activeUser.data === '' ? (<></>) : (
                         <li>
-                            <a href='/'>Orders</a>
+                            <a href='/orders'>Orders</a>
                         </li>)}
                     {activeUser.data === '' ? (<></>) : (
                         <li>
                             <a href={'/ShoppingCart'}>Shopping Cart</a>
                         </li>)}
-                        {console.log(activeUser.data)}
                         {activeUser.data === undefined ? (<></>) : (
                             activeUser.data.username === 'admin' ? (
                         <li>

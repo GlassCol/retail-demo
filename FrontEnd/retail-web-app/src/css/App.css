@@ -178,6 +178,95 @@ h1 {
   font-family: var(--font-raleway);
 }
 
+.orderContainer {
+  width: 100%;
+  margin-top: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.orderLine {
+  width: 350px;
+  height: 9rem;
+  margin: 1.5rem;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+  background: #1f2123;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+}
+
+.orderLine button {
+  width: 90%;
+  height: 1rem;
+  margin-left: 110%;
+  margin-top: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1f2123;
+  -webkit-text-fill-color: #f9d3b4;
+  padding: 1rem;
+  border-radius: 1rem;
+  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+}
+
+.orderLine button:hover {
+  background-color: #1f2123;
+  -webkit-text-fill-color: #a1a1a1;
+  padding: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+}
+
+.orderLine h2 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+  margin-left: 22%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  color: #f9d3b4;
+  font-family: var(--font-raleway);
+}
+
+.orderLine h3 {
+  font-size: .75rem;
+  margin-top: .5rem;
+  margin-left: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  color: #f9d3b4;
+  font-family: var(--font-raleway);
+}
+
+.orderLine span {
+  font-size: 1.25rem;
+  margin-top: .5rem;
+  color: #f9d3b4;
+  font-family: var(--font-raleway);
+}
+
+.orderCard {
+  width: 100%;
+  margin-top: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .shoppingCartLine h2 {
   font-size: 1.25rem;
   margin-top: .5rem;

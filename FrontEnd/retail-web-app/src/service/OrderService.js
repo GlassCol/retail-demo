@@ -10,6 +10,18 @@ class OrderService {
         getOrderById(orderId) {
             return axios.get(API_URL + '/' + orderId);
         }
+
+        getOrdersByUserId(userId) {
+            return axios.get(API_URL + '/user/' + userId);
+        }
+
+        getViewingOrder() {
+            return axios.get(API_URL + '/viewOrder');
+        }
+
+        setViewingOrder(order) {
+            return axios.post(API_URL + '/viewOrder', order);
+        }
     
         createOrder(order) {
             return axios.post(API_URL, order);

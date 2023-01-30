@@ -1,23 +1,23 @@
 package com.retail.demo.dao;
 
-import com.retail.demo.entity.InventoryItemEntity;
-import com.retail.demo.model.InventoryItem;
+import com.retail.demo.entity.OrderedItemEntity;
+import com.retail.demo.model.OrderedItem;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface OrderedItemDao extends JpaRepository<InventoryItemEntity, Long> {
+public interface OrderedItemDao extends JpaRepository<OrderedItemEntity, Long> {
     /**
      * Gets the last element from the jpa
-     * @return InventoryItem: the last inventory item in the database
+     * @return orderedItem: the last ordered item in the database
      */
-    default InventoryItem findLastAddition() {
-        List<InventoryItemEntity> inventoryItemList = this.findAll();
-        InventoryItemEntity inventoryItemEntity = inventoryItemList.get(inventoryItemList.size() - 1);
-        InventoryItem inventoryItem = new InventoryItem();
-        BeanUtils.copyProperties(inventoryItemEntity, inventoryItem);
-        return inventoryItem;
+    default OrderedItem findLastAddition() {
+        List<OrderedItemEntity> orderedItemList = this.findAll();
+        OrderedItemEntity orderedItemEntity = orderedItemList.get(orderedItemList.size() - 1);
+        OrderedItem orderedItem = new OrderedItem();
+        BeanUtils.copyProperties(orderedItemEntity, orderedItem);
+        return orderedItem;
     }
 }

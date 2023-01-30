@@ -7,7 +7,7 @@ const ItemCard = ({ item, activeUser }) => {
   const navigate = useNavigate();
 
   const addToCart = () => {
-    item.data.userId = activeUser.data.id;
+    item.userId = activeUser.data.id;
     ShoppingCartService.addToShoppingCart(item);
     alert(item.name + " has been added to your cart")
   }
