@@ -15,13 +15,13 @@ You will need both sql and node installed on your machine to be able to run it
 To run the demo you will first need to open the properties file in BackEnd/retail-demo/src/main/java/recources/
 and change the username and password to fit your local sql database
 
-#Usage
+# Usage
 To run the program simply start the backend in any IDE and then run the front end by typing the npm start command in the console
 at the front end folders terminal
 If you would like to use admin functionality you must first create an account named "admin". This will allow you to create items for
 the database to work with as it comes empty
 
-#Compatability
+# Compatability
 This application is completly mobile friendly and is able to run on any and all operating systems other than apple products
 
 
