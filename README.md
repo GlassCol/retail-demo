@@ -27,6 +27,10 @@ the database to work with as it comes empty
 # Compatability
 This application is completly mobile friendly and is able to run on any and all operating systems other than apple products
 
+Local Images may not be loaded on google chrome so I have disabled the images items. If you would like to enable images for the
+program simply visit line 26 of ItemCard.jsx and replace the === with !==
+Then do the same on line 14 of OrderedItemCard.jsx
+
 
 
 
