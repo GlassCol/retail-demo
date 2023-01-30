@@ -61,4 +61,13 @@ public class ShoppingCartServiceConcrete implements ShoppingCartService {
     public boolean isDaoEmpty() {
         return shoppingCartDao.findAll().isEmpty();
     }
+
+    @Override
+    public ShoppingCartItem getLastItem() {
+        List<ShoppingCartItemEntity> shoppingCartItemEntityList = shoppingCartDao.findAll();
+        ShoppingCartItemEntity shoppingCartItemEntity = shoppingCartItemEntityList.get(shoppingCartItemEntityList.size() - 1);
+        ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+        BeanUtils.copyProperties(shoppingCartItemEntity, shoppingCartItem);
+        return shoppingCartItem;
+    }
 }

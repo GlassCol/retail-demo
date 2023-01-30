@@ -19,4 +19,6 @@ public interface UserService {
     User setCurrentUser(User user);
 
     boolean resetCurrentUser();
+
+    User getLastUser();
 }

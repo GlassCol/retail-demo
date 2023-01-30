@@ -12,4 +12,6 @@ public interface ShoppingCartService {
     boolean removeFromCart(Long itemId);
 
     boolean isDaoEmpty();
+
+    ShoppingCartItem getLastItem();
 }

@@ -83,5 +83,14 @@ public class UserServiceConcrete implements UserService {
         return true;
     }
 
+    @Override
+    public User getLastUser() {
+        List<UserEntity> userList = userDao.findAll();
+        UserEntity userEntity = userList.get(userList.size() - 1);
+        User user = new User();
+        BeanUtils.copyProperties(userEntity, user);
+        return user;
+    }
+
 
 }
