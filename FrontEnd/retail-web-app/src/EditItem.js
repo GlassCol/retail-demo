@@ -14,7 +14,7 @@ const EditItem = () => {
         price: "",
         quantity: "",
         discount: "",
-        poster: "",
+        image: "",
         orderId: 0
     });
     const handleChange = (e) => {
@@ -24,8 +24,10 @@ const EditItem = () => {
 
     const saveItem = (e) => {
         e.preventDefault();
-        InventoryItemService.updateInventoryItem(() => item).then((response) => {
+        console.log(item.id)
+        InventoryItemService.updateInventoryItem(item, item.id).then((response) => {
             console.log(response);
+            alert("Item Updated Successfully");
         }).catch((error) => {
             console.log(error);
         })
@@ -34,6 +36,7 @@ const EditItem = () => {
     const getItem = () => {
         InventoryItemService.getInventoryItemById(item.id).then((response) => {
             setItem(() => response.data);
+
         }).catch((error) => {
             console.log(error);
         })
@@ -47,7 +50,7 @@ const EditItem = () => {
                 <nav className="nav">
                     <ul>
                         <li>
-                            <a href='/admin'>Home</a>
+                            <a href='/'>Home</a>
                         </li>
                     </ul>
                 </nav>
@@ -103,7 +106,7 @@ const EditItem = () => {
                     />
                     <h1>Item Banner</h1>
                 </div>
-                <button className="loginButton" onClick={() => saveItem}>Submit</button>
+                <button className="loginButton" onClick={saveItem}>Submit</button>
             </div>
         </>
     )

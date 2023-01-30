@@ -5,10 +5,7 @@ import com.retail.demo.dao.OrderedItemDao;
 import com.retail.demo.entity.InventoryItemEntity;
 import com.retail.demo.entity.OrderEntity;
 import com.retail.demo.entity.OrderedItemEntity;
-import com.retail.demo.model.OrderedItem;
-import com.retail.demo.model.ShoppingCartItem;
-import com.retail.demo.model.User;
-import com.retail.demo.model.UserOrder;
+import com.retail.demo.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +22,8 @@ public class OrderServiceConcrete implements OrderService {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
+    private InventoryItemService inventoryItemService;
     private UserOrder currentUserOrder;
 
     public OrderServiceConcrete(OrderDao orderDao, OrderedItemDao orderedItemDao) {
@@ -49,11 +48,28 @@ public class OrderServiceConcrete implements OrderService {
     private boolean saveShoppingCartItemsInOrder(UserOrder userOrder) {
         try {
             for (ShoppingCartItem shoppingCartItem : shoppingCartService.getShoppingCart()) {
+                InventoryItem inventoryItem = inventoryItemService.getInventoryItemByName(shoppingCartItem.getName()).get(0);
+                InventoryItemEntity inventoryItemEntity = new InventoryItemEntity();
+                BeanUtils.copyProperties(inventoryItem, inventoryItemEntity);
+                decrementInventoryItem(inventoryItemEntity);
                 OrderedItemEntity orderedItem = new OrderedItemEntity();
                 BeanUtils.copyProperties(shoppingCartItem, orderedItem);
                 orderedItem.setOrderId(userOrder.getId());
                 orderedItemDao.save(orderedItem);
             }
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    private boolean decrementInventoryItem(InventoryItemEntity inventoryItemEntity) {
+        try {
+            inventoryItemEntity.setQuantity(inventoryItemEntity.getQuantity() - 1);
+            InventoryItem inventoryItem = new InventoryItem();
+            BeanUtils.copyProperties(inventoryItemEntity, inventoryItem);
+            inventoryItemService.updateInventoryItem(inventoryItemEntity.getId(), inventoryItem);
             return true;
         } catch (Exception e) {
             System.out.println(e);

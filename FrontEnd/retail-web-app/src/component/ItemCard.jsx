@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import InventoryItemService from '../service/InventoryItemService';
 import ShoppingCartService from '../service/ShoppingCartService';
 
 const ItemCard = ({ item, activeUser }) => {
@@ -11,8 +12,9 @@ const ItemCard = ({ item, activeUser }) => {
     ShoppingCartService.addToShoppingCart(item);
     alert(item.name + " has been added to your cart")
   }
-  const removeFromCart = () => {
-    ShoppingCartService.removeFromShoppingCart(item.id);
+  const removeItem = () => {
+    InventoryItemService.deleteInventoryItem(item.id);
+    alert(item.name + " has been removed from the inventory")
   }
 
   return (
@@ -45,7 +47,7 @@ const ItemCard = ({ item, activeUser }) => {
 
               {activeUser.data.username === 'admin' &&
                 <th scope='col'>
-                  <button className='cardButton' onClick={() => removeFromCart()}>Delete Item</button>
+                  <button className='cardButton' onClick={() => removeItem()}>Delete Item</button>
                 </th>
               }
             </tr>
